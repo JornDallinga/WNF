@@ -17,6 +17,7 @@ Download_WWF <- function(data,year,mydir){
   filenames <- unlist(filenames)
   
   urls <- grep(pattern = ".tif$", filenames, value = T)
+  print("Listing fies to download")
   print(urls)
   
   #Location urls = readline("Which file?:")
