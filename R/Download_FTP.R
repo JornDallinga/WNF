@@ -1,7 +1,3 @@
-data <- 'Forest Cover'
-year <- 2000
-mydir <- 'data'
-
 Download_WWF <- function(data,year,mydir){
   
   # get login information

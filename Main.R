@@ -22,14 +22,15 @@ source("R/Download_FTP.R")
 dir.create(file.path('data'), showWarnings = FALSE)
 dir.create(file.path('data/Hansen'), showWarnings = FALSE)
 dir.create(file.path('data/extract_hansen'), showWarnings = FALSE)
-data/extract_hansen
+
 
 # Set function parameters
 data <- 'Forest Cover'
 year <- 2000
 mydir <- 'data'
 threshold <- 30
-
+country <- NULL
+country <- 'MYS' # http://en.wikipedia.org/wiki/ISO_3166-1
 
 # Run functions
 
