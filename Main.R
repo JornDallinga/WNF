@@ -5,6 +5,7 @@ if (!require(rgdal)) install.packages('rgdal')
 if (!require(RCurl)) install.packages('RCurl')
 if (!require(ff)) install.packages('ff')
 if (!require(gfcanalysis)) install.packages('gfcanalysis')
+if (!require(caret)) install.packages('caret', dependencies = T)
 
 # Loading packages
 library(raster)
@@ -13,6 +14,8 @@ library(rgdal)
 library(RCurl)
 library(bitops)
 library(gfcanalysis)
+library(caret)
+library(e1071)
 
 
 # Load source scripts
