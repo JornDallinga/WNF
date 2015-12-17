@@ -21,11 +21,11 @@ Hansen <- function(Threshold, year = Year){
                                    filename="data/extract_hansen/GFC_extract_thresholded.tif", overwrite=TRUE)
   
   ## Masking for water perc calculations
-  mask_water <- mask(gfc_thresholded, aoi)
+  mask_water <- crop(gfc_thresholded, aoi)
   
   
   ## Masking gfc data to aoi
-  mask_gfc <- mask(gfc_thresholded, aoi)
+  mask_gfc <- crop(gfc_thresholded, aoi)
   
   ## anual stack of years
   annual_Hansen <- annual_stack(mask_gfc, data_year = 2015)
