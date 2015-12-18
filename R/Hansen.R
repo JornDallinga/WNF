@@ -1,10 +1,10 @@
 
 #-------------------------------------- Function -----------------------------------
 
-Hansen <- function(Threshold, year = Year){
+Hansen <- function(threshold = threshold, year = Year, output = output){
   ## Create variable Area Of Interest (aio)
   #aoi <- readRDS(file = 'data/BufferWGS.rds', refhook = NULL)
-  aoi <- BB
+  aoi <- output
   ## Calculate tiles needed to cover the AOI
   tiles <- calc_gfc_tiles(aoi)
   print(length(tiles))
@@ -17,7 +17,7 @@ Hansen <- function(Threshold, year = Year){
   
   
   ## Apply threshold to extracted data 
-  gfc_thresholded <- threshold_gfc(gfc_extract, Threshold=Threshold, 
+  gfc_thresholded <- threshold_gfc(gfc_extract, Threshold=threshold, 
                                    filename="data/extract_hansen/GFC_extract_thresholded.tif", overwrite=TRUE)
   
   ## Masking for water perc calculations
