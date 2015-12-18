@@ -11,14 +11,14 @@ Confusion_Matrix <- function(WNF, Hansen){
   Reference[Reference == 0] <- "Non.Forest"
   Reference[Reference == 1] <- "Forest"
   
-  Reference[Reference == 3] <- "Water"
-  Reference[Reference == 4] <- "Clouds/Shadow/No_data"
+  #Reference[Reference == 3] <- "Water"
+  #Reference[Reference == 4] <- "Clouds/Shadow/No_data"
   
   Predicted[Predicted == 0] <- "Non.Forest"
   Predicted[Predicted == 1] <- "Forest"
   
-  Predicted[Predicted == 3] <- "Water"
-  Predicted[Predicted == 4] <- "Clouds/Shadow/No_data"
+  #Predicted[Predicted == 3] <- "Water"
+  #Predicted[Predicted == 4] <- "Clouds/Shadow/No_data"
   
   WNF <- Reference
   Hansen <- Predicted
