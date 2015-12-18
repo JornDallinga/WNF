@@ -13,10 +13,9 @@ Download_WWF <- function(data,year,mydir){
   filenames <- unlist(filenames)
   
   urls <- grep(pattern = ".tif$", filenames, value = T)
-  print("Listing fies to download")
-  print(urls)
+  print("Listing files to download")
   
-  #Location urls = readline("Which file?:")
+
   
   # generate the full URLS
   fileurls = paste0(baseurl, urls)
@@ -29,4 +28,15 @@ Download_WWF <- function(data,year,mydir){
     writeBin(getBinaryURL(fileurls[i], userpwd = upw), 
              con = filepaths[i])  
   
+  # list all files in folder
+  print('select a file from the following list: ')
+  list.files(sprintf('%s/',mydir), full.names=F)
+  
+  # Request filename
+  WWF_dataset = readline("Select a geograpahic location from the list: ")
+  
+  x <- raster(sprintf('data/%s',WWF_dataset))
+  x <- setMinMax(x)
+  
+  return(x)
 }
