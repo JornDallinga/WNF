@@ -1,7 +1,7 @@
 
 #-------------------------------------- Function -----------------------------------
 
-Hansen <- function(threshold = threshold, year = Year, output = output){
+Hansen <- function(threshold = threshold, year = year, output = output){
   ## Create variable Area Of Interest (aio)
   #aoi <- readRDS(file = 'data/BufferWGS.rds', refhook = NULL)
   aoi <- output
@@ -10,26 +10,33 @@ Hansen <- function(threshold = threshold, year = Year, output = output){
   print(length(tiles))
   
   ## Download GFC data
-  download_tiles(tiles, 'data/Hansen')
+  download_tiles(tiles, 'data/Hansen', data_year = 2015)
+  
+  #set cores
+  beginCluster( detectCores()-1 )
   
   ## Extract data from tiles
-  gfc_extract <- extract_gfc(aoi, "data/Hansen", filename="data/extract_hansen/GFC_extract.tif", overwrite=TRUE, data_year = 2015)
-  
+  system.time(extract_gfc(aoi, data_folder = "data/Hansen", filename="data/extract_hansen/GFC_extract.tif", overwrite=TRUE, stack = 'change', data_year = 2015))
+
   
   ## Apply threshold to extracted data 
-  gfc_thresholded <- threshold_gfc(gfc_extract, Threshold=threshold, 
-                                   filename="data/extract_hansen/GFC_extract_thresholded.tif", overwrite=TRUE)
+  system.time(threshold_gfc(stack("data/extract_hansen/GFC_extract.tif"), forest_threshold = threshold, 
+                         filename="data/extract_hansen/GFC_extract_thresholded.tif", overwrite=TRUE, progress = 'text'))
+  
+  
   
   ## Masking for water perc calculations
-  mask_water <- crop(gfc_thresholded, aoi)
+  #mask_water <- mask(stack('data/extract_hansen/GFC_extract_thresholded.tif'), aoi)
   
   
   ## Masking gfc data to aoi
-  mask_gfc <- crop(gfc_thresholded, aoi)
-  
+  system.time(mask(stack('data/extract_hansen/GFC_extract_thresholded.tif'), aoi, filename = 'data/gfc_threshold/Hansen_mask.tif', overwrite = T, progress = 'text'))
+
   ## anual stack of years
-  annual_Hansen <- annual_stack(mask_gfc, data_year = 2015)
+  system.time(annual_Hansen <- annual_stack(stack('data/extract_hansen/GFC_extract_thresholded.tif'), data_year = 2015))
   
+  #stop snowfall
+  endCluster()
   
   # retrieve water
   Water <- freq(mask_water$datamask, digits= 0, value = 2, useNA = no)
@@ -42,7 +49,9 @@ Hansen <- function(threshold = threshold, year = Year, output = output){
   
   # Select a year from the annual Hansen dataset
   select_y <- sprintf("y%s",year)
+  print("Loading1")
   subset_Year <- subset(annual_Hansen, subset = select_y)
+  print("Loading2")
   
   # Create binary forest cover map and figure output
   

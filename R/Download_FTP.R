@@ -13,8 +13,9 @@ Download_WWF <- function(data,year,mydir){
   filenames <- unlist(filenames)
   
   urls <- grep(pattern = ".tif$", filenames, value = T)
-  print("Listing files to download")
   
+  print("Listing files to download")
+  urls
 
   
   # generate the full URLS
