@@ -8,6 +8,7 @@ if (!require(gfcanalysis)) install.packages('gfcanalysis')
 if (!require(caret)) install.packages('caret', dependencies = T)
 if (!require(parallel)) install.packages('parallel', dependencies = T)
 if (!require(pryr)) install.packages('pryr', dependencies = T)
+if (!require(plotKML)) install.packages('plotKML', dependencies = T)
 
 # Loading packages
 library(raster)
@@ -21,6 +22,7 @@ library(bitops)
 library(gfcanalysis)
 library(caret)
 library(e1071)
+library(plotKML)
 
 
 # Load source scripts
