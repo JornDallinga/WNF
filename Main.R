@@ -9,6 +9,7 @@ if (!require(caret)) install.packages('caret', dependencies = T)
 if (!require(parallel)) install.packages('parallel', dependencies = T)
 if (!require(pryr)) install.packages('pryr', dependencies = T)
 if (!require(plotKML)) install.packages('plotKML', dependencies = T)
+if (!require(openxlsx)) install.packages('openxlsx', dependencies = T)
 
 # Loading packages
 library(raster)
@@ -23,6 +24,9 @@ library(gfcanalysis)
 library(caret)
 library(e1071)
 library(plotKML)
+library(maptools)
+library(openxlsx)
+
 
 
 # Load source scripts
@@ -33,7 +37,7 @@ source("R/Extent.R")
 source("R/Confusion_matrix.R")
 
 # set temp directory
-options(rasterTmpDir='d:/r/temp_dir/')
+#options(rasterTmpDir='d:/r/temp_dir/')
 
 
 
