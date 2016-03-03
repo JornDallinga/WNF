@@ -1,4 +1,5 @@
-mydata <- read.xlsx("FC_test.xlsx", 1)
+
+# read excel file
 df <- read.xlsx("FC_test.xlsx", sheet = 1, startRow = 1, colNames = TRUE)
 
 xy <- df[,c(2,3)]
@@ -48,3 +49,18 @@ outcome
 
 # report proportional table
 tablet <- prop.table(tabletest)
+
+# convert projection system to meters
+newData <- spTransform(spdf, CRS("+init=epsg:3857"))
+
+# buffer points
+bufferedPoints <- gBuffer(newData,width=1000, byid=TRUE, capStyle = 'SQUARE')
+
+# write OGR
+#writeOGR(obj=bufferedPoints, dsn="data/output", layer="buffers", driver="ESRI Shapefile")
+
+# reproject to WGS
+newData1 <- spTransform(bufferedPoints, CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0"))
+
+# 
+plot(newData1)
