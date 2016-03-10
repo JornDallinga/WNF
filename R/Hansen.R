@@ -1,4 +1,4 @@
-Hansen <- function(threshold = threshold, year = year, output = output){
+Hansen <- function(threshold = threshold, year = year, output = output, UTM = UTM){
   ## Create variable Area Of Interest (aio)
   #aoi <- readRDS(file = 'data/BufferWGS.rds', refhook = NULL)
   aoi <- output
@@ -10,7 +10,7 @@ Hansen <- function(threshold = threshold, year = year, output = output){
   download_tiles(tiles, 'data/Hansen', data_year = 2015)
   
   ## Extract data from tiles
-  Ex_data <- extract_gfc(aoi, data_folder = "data/Hansen", stack = 'change', data_year = 2015)
+  Ex_data <- extract_gfc(aoi, data_folder = "data/Hansen", stack = 'change', data_year = 2015, to_UTM = UTM)
 
   
   ## Apply threshold to extracted data 
