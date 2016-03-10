@@ -11,6 +11,7 @@ if (!require(pryr)) install.packages('pryr', dependencies = T)
 if (!require(plotKML)) install.packages('plotKML', dependencies = T)
 if (!require(xlsx)) install.packages('xlsx', dependencies = T)
 if (!require(openxlsx)) install.packages('openxlsx', dependencies = T)
+if (!require(stringi)) install.packages('stringi', dependencies = T)
 
 
 # Loading packages
@@ -31,6 +32,7 @@ library(xlsx)
 # prioritize a package function for writing excel files
 write.xlsx.xlsx <- write.xlsx
 library(openxlsx)
+library(stringi)
 
 
 
@@ -137,7 +139,7 @@ for (i in 1:length(mydata)){
   # start functions
   buff <- buf(mydata = mydata, BufferDistance = BufferDistance)
   
-  #rast <- Hansen(threshold = threshold, year = 2010, output = buff)
+  #rast <- Hansen(threshold = threshold, year = 2010, output = buff, UTM = F)
   rr <- Poly_looping(mydata = mydata, ras = ras, buff = buff)
   
   # add to dataframe
