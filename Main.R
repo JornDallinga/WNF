@@ -48,6 +48,9 @@ source("R/Confusion_matrix.R")
 source("R/Poly_looping.R")
 source("R/accuracy.R")
 source("R/buf.R")
+source("R/Forest_def.R")
+source("R/TREES_III.R")
+source("R/Conf_t.R")
 
 # set temp directory
 #options(rasterTmpDir='d:/r/temp_dir/')
@@ -165,3 +168,44 @@ Confusion_byClass <- as.matrix(final$byClass)
 write.xlsx.xlsx(Confusion_table, file = sprintf("data/output/Amazone_WWF_%s.xlsx",year), sheetName = "Confusion_Matrix")
 write.xlsx.xlsx(Confusion_overall, file = sprintf("data/output/Amazone_WWF_%s.xlsx",year), sheetName = "Confusion_overall", append = T)
 write.xlsx.xlsx(Confusion_byClass, file = sprintf("data/output/Amazone_WWF_%s.xlsx",year), sheetName = "Confusion_byClass", append = T)
+
+
+
+######################################################## TREES III #########################################################
+
+# Load WWF datasets
+from <- raster('data/Transformed_Rasters/cerrado_forest_2000.tif')
+to <- raster('data/Transformed_Rasters/cerrado_2010.tif')
+
+# List files of TREES III dataset
+myfiles <- list.files('data/TREES_III/',full.names = T)
+myfiles <- myfiles[ !grepl(".zip",myfiles) ]
+
+count <- 0
+
+# Run loop through myfiles
+for (i in 1:length(myfiles)){
+  ogr <- list.files(myfiles[i], pattern = '.shp', full.names = T)
+  ogr_layer <- stri_sub(list.files(myfiles[i], pattern = '.shp', full.names = F), 0, -5)
+  TREES <- readOGR(ogr, layer = ogr_layer)
+  
+  comb <- TREES_III(from = from, to = to, TREES = TREES, type = 'FC', year = 2010)
+  
+  if (is.null(comb) == F){
+    tab <- Conf_t(pred = subset(comb, 'Prediction'), ref = subset(comb, 'Reference'))
+    if (count == 0){
+      tab1 <- tab
+      count <- count + 1
+    } else {
+      tab1 <- tab + tab1
+    }
+    
+  }
+  
+  print(i)
+}
+
+# create confusion matrix
+outcome_poly <- confusionMatrix(tab1)
+outcome_poly
+
