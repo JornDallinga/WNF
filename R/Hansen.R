@@ -34,12 +34,12 @@ Hansen <- function(threshold = threshold, year = year, output = output, UTM = UT
     
   } else if (year >= 2001 & year <= 2014){
     ## create forest cover mask of years 2001 till 2014
-
-    subset_Year[subset_Year == 2 ] <- 0
-    subset_Year[subset_Year == 3 ] <- 0
-    subset_Year[subset_Year == 4 ] <- 1
-    subset_Year[subset_Year == 5 ] <- 1
-    subset_Year[subset_Year == 6 ] <- 0
+    subset_Year[subset_Year == 1 ] <- 1   # Forest
+    subset_Year[subset_Year == 2 ] <- 0   # Non forest
+    subset_Year[subset_Year == 3 ] <- 0   # Forest loss
+    subset_Year[subset_Year == 4 ] <- 1   # Forest gain
+    subset_Year[subset_Year == 5 ] <- 1   # Forest loss and gain
+    subset_Year[subset_Year == 6 ] <- 0   # Water
     mask_gfc <- subset_Year
   } else {
     warning("invalid year")
