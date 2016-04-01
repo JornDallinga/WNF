@@ -1,9 +1,8 @@
-
-Conf_t <- function(pred, ref){
+Table_TREES <- function(df){
   # set table classes even
-  pred <- pred@data@values
-  ref <- ref@data@values
-  u = union(pred, ref)
+  pred <- df$Pred
+  ref <- df$Ref
+  u = union(df$Pred, df$Ref)
   t = table(factor(pred, u), factor(ref, u), dnn = c('Pred', 'Ref'))
   return (t)
 }

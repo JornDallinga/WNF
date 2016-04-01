@@ -12,8 +12,12 @@ accuracy <- function(output, threshold){
   mypol$WWF[(mypol$forest < (threshold/100)) | is.na(mypol$forest)] <- 0
   
   # Calculate accuracy for polygons
-  tabletest <- table(mypol$Ref,mypol$WWF, dnn = c('REF','WWF'))
-  outcome_poly <- confusionMatrix(tabletest)
-  return(outcome_poly)
+  pred <- mypol$WWF
+  ref <- mypol$Ref
+  u = union(pred, ref)
+  t = table(factor(pred, u), factor(ref, u), dnn = c('Pred', 'Ref'))
+
+  #outcome_poly <- confusionMatrix(tabletest)
+  return(t)
 }
 

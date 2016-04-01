@@ -1,4 +1,4 @@
-Hansen <- function(threshold = threshold, year = year, output = output, UTM = UTM){
+Hansen <- function(threshold = threshold, year = year, output = output, UTM = UTM, H = T){
   ## Create variable Area Of Interest (aio)
   #aoi <- readRDS(file = 'data/BufferWGS.rds', refhook = NULL)
   aoi <- output
