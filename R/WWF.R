@@ -14,7 +14,3 @@ WWF <- function(x = x, output = output){
 ## temp script for bounding box (extent)
 #output <- drawExtent(show=TRUE, col="red")
 #BB <- spTransform(output, CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0"))
-
-
-output <- gUnaryUnion(output, id = output@data$NAME_0)
-output_crop1 <- mask(outputtest, output)
